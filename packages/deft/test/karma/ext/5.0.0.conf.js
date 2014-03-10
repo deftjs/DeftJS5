@@ -14,7 +14,7 @@ module.exports = function(config) {
 
 		// list of files / patterns to load in the browser
 		files: [
-			'http://cdn.sencha.com/ext/gpl/4.2.1/ext-all.js',
+			'../../../ext/build/ext-all.js',
 			'build/deft-debug.js',
 
 			'test/lib/chai-1.8.1/chai.js',
@@ -51,7 +51,7 @@ module.exports = function(config) {
 
 		coverageReporter: {
 			type: 'html',
-			dir: 'test/coverage/ext/4.2.1'
+			dir: 'test/coverage/ext/5.0.0'
 		},
 
 		// test results reporter to use
