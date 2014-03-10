@@ -9,26 +9,26 @@ Open source under the [MIT License](http://en.wikipedia.org/wiki/MIT_License).
 ###
 Ext.define( 'Deft.event.LiveEventBus',
 	alternateClassName: [ 'Deft.LiveEventBus' ]
-	requires: [ 
+	requires: [
 		'Ext.Component'
 		'Ext.ComponentManager'
-		
+
 		'Deft.event.LiveEventListener'
 	]
 	singleton: true
-	
+
 	constructor: ->
 		@listeners = []
 		return
-		
+
 	destroy: ->
 		for listener in @listeners
 			listener.destroy()
 		@listeners = null
 		return
-	
+
 	addListener: ( container, selector, eventName, fn, scope, options ) ->
-		listener = Ext.create( 'Deft.event.LiveEventListener', 
+		listener = Ext.create( 'Deft.event.LiveEventListener',
 			container: container
 			selector: selector
 			eventName: eventName
@@ -38,20 +38,20 @@ Ext.define( 'Deft.event.LiveEventBus',
 		)
 		@listeners.push( listener )
 		return
-	
+
 	removeListener: ( container, selector, eventName, fn, scope ) ->
 		listener = @findListener( container, selector, eventName, fn, scope )
 		if listener?
 			Ext.Array.remove( @listeners, listener )
 			listener.destroy()
 		return
-	
+
 	on: ( container, selector, eventName, fn, scope, options ) ->
 		return @addListener( container, selector, eventName, fn, scope, options )
-	
+
 	un: ( container, selector, eventName, fn, scope ) ->
 		return @removeListener( container, selector, eventName, fn, scope )
-	
+
 	# @private
 	findListener: ( container, selector, eventName, fn, scope ) ->
 		for listener in @listeners
@@ -60,25 +60,25 @@ Ext.define( 'Deft.event.LiveEventBus',
 			if listener.container is container and listener.selector is selector and listener.eventName is eventName and listener.fn is fn and listener.scope is scope
 				return listener
 		return null
-	
+
 	# @private
 	register: ( component ) ->
 		component.on( 'added', @onComponentAdded, @ )
 		component.on( 'removed', @onComponentRemoved, @ )
 		return
-	
+
 	# @private
 	unregister: ( component ) ->
 		component.un( 'added', @onComponentAdded, @ )
 		component.un( 'removed', @onComponentRemoved, @ )
 		return
-	
+
 	# @private
 	onComponentAdded: ( component, container, eOpts ) ->
 		for listener in @listeners
 			listener.register( component )
 		return
-	
+
 	# @private
 	onComponentRemoved: ( component, container, eOpts ) ->
 		for listener in @listeners
@@ -89,12 +89,12 @@ Ext.define( 'Deft.event.LiveEventBus',
 		if Ext.getVersion( 'touch' )?
 			Ext.define( 'Deft.Component',
 				override: 'Ext.Component'
-				
+
 				setParent: ( newParent ) ->
 					oldParent = @getParent()
-					
+
 					result = @callParent( arguments )
-					
+
 					if oldParent is null and newParent isnt null
 						@fireEvent( 'added', @, newParent )
 					else if oldParent isnt null and newParent isnt null
@@ -102,9 +102,9 @@ Ext.define( 'Deft.event.LiveEventBus',
 						@fireEvent( 'added', @, newParent )
 					else if oldParent isnt null and newParent is null
 						@fireEvent( 'removed', @, oldParent )
-					
+
 					return result
-				
+
 				isDescendantOf: ( container ) ->
 					ancestor = @getParent()
 					while ancestor?
@@ -113,7 +113,7 @@ Ext.define( 'Deft.event.LiveEventBus',
 						ancestor = ancestor.getParent()
 					return false
 			)
-		
+
 		Ext.Function.interceptAfter(
 			Ext.ComponentManager,
 			'register',
@@ -121,7 +121,7 @@ Ext.define( 'Deft.event.LiveEventBus',
 				Deft.event.LiveEventBus.register( component )
 				return
 		)
-		
+
 		Ext.Function.interceptAfter(
 			Ext.ComponentManager,
 			'unregister',
@@ -129,6 +129,6 @@ Ext.define( 'Deft.event.LiveEventBus',
 				Deft.event.LiveEventBus.unregister( component )
 				return
 		)
-		
+
 		return
 )
