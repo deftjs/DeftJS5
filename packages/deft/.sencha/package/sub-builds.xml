@@ -151,7 +151,11 @@
     <target name="-examples">
         <x-process-examples>
             <echo>Building example in @{example-dir}</echo>
-            <x-sub-build dir="@{example-dir}"/>
+            <x-sencha-command dir="@{example-dir}" inheritall="false">
+                app
+                each
+                build
+            </x-sencha-command>
         </x-process-examples>
     </target>
     
