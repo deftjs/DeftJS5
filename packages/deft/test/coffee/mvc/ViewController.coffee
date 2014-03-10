@@ -6,19 +6,11 @@ Open source under the [MIT License](http://en.wikipedia.org/wiki/MIT_License).
 describe( 'Deft.mvc.ViewController', ->
 
 	hasListener = ( observable, eventName ) ->
-		if Ext.getVersion( 'extjs' )?
-			# Workaround: Prior to 4.1.0, events had to be explicitly added.
-			if Ext.getVersion( 'extjs' ).isLessThan( '4.1.0' )
-				if observable.events[ eventName ] is undefined
-					observable.addEvents( eventName )
-
-			# Ext JS's implementation of `Ext.util.Observable::hasListener()` returns inaccurate information after `Ext.util.Observable::clearListeners()` is called.
-			if ( observable.hasListener( eventName ) or observable.events[ eventName ]?.listeners?.length > 0 )
-				return true
-			else
-				return false
+		# Ext JS's implementation of `Ext.util.Observable::hasListener()` returns inaccurate information after `Ext.util.Observable::clearListeners()` is called.
+		if ( observable.hasListener( eventName ) or observable.events[ eventName ]?.listeners?.length > 0 )
+			return true
 		else
-			return observable.hasListener( eventName )
+			return false
 
 	describe( 'Configuration', ->
 
