@@ -4,7 +4,7 @@
       "12322b2f0769f491000df8ec0e012dd2d78a7eaf": "eJx1zrEKwjAQgOG9TxE6S9HV2VFcFBdxONJrDW1y8XIRSum7m2pTJzMd/3cHGQuVXunAYrlX5ei79pTmqdx8QQa/wiXNK2hGEOLZwJEbLMWQLURrgYfZzg9iUTksXqOA6bE+YNBsvBhy8+6RXKvqX1PUKA+6gxbz5Qs5LNu7altt19+Q9SDXP9oQW5BPzqknDX0qwhGXxPiMhjGkersXU/EGNatRVA\u003d\u003d"
     },
     "theme.html.tpl.merge": {
-      "79ec5194c052d6cc313e842c4e2763fa562c7b70": "eJydVE1vEzEQve+vmO4JEF6nhQNKd3MJRYCQqEg4cHS8k9jFay/2JE1U9b/X3l1KWoKIYln74Tdv3vh55PLs/dfp/Mf1FShqzCQrzxjLAGDq2p3XK0XwQr6Ei9H5BYuPNwXM0Eol4JOVRcZYJAw8haKeJCaUpMng5GpL8HkGc4UNwkfhLYZQ8h7r4xokEWWpZfhrrTdVPnWW0BKb71rMQfZ/VU64JZ5kLiFK+4BUfZ9/YO/ySdYnGmqGL07UIIwBnxJ6rMFo+zOAsDUE6XVLoYtLdXfEBMdgU+WBdgaDQqQcKMoPqjKEHJTHZZXjVjStwaJb4kOCPus+40ZsRL+aQ/CyyouCx3kXsW9orgWpex6/WY2L9aq4Cfmk5H388SkXzlEgL9pn/ANukEKYGS3RRz89HrbhCEmPtkb/f73kfiOsXmKgwXjlPMn1CZq9c3Emvyj1EVuIgDyIEPhwHPy32IlWHqXxuIUTReQ6kGsOmtf1XZ8pjeJW1ysklnpfaBtP7e4RS6MRfqXtGM5H7fbyCRKJpMbwdvQX0rqgSbvIip0uSG/wKe426JfG3Y5ho4NemD34PvtT2ZaFro8YxRqQXv8TgVfPinatkJp2ser9zN32+bD/ku/dHwtX76JR3Ssh3QXzACi8aeE\u003d"
+      "8865d5dd462e8fe127bbe970f5e10803ed934755": "eJx1kk1P3DAQhu/5FYNPbYWThfaAliSXLaitKlGJ5cDR6wwbU8d27WlIVPHfsZOULqD6kCh+/H5M5PLo89Vme/vjAlrqdJ2VR5xnALCxbvRq3xK8k+/hdHVyyuPjYw7XaGQr4KuRecZ5FCy6FkVTJyWUpEhjfTEQfLuGbYsdwhfhDYZQFjObz3VIIsaS4/jrt+ortrGG0BDfjg4ZyPmrYoQDFSnmHGK0D0jVzfaSn7E6m42WzvDdigaE1uCToccGtDI/AwjTQJBeOQrTudR7EiYcD+uKBRo1hhaRGFCMX1JlCAxaj3cVw0F0TmM+bRWLwex6qLgXvZh3GQQvK7azlgJ54fL7wOqymOHf6lPubJZW/qCaPRJPswtl0MOfZ5ZWJ/xemTWcrNxw/oJEIbVr+LR6Q5wNipSNqjipINXjS2579HfaPqyhV0Ht9AF+zP41G3jQSqLnFDsgHf+XwIdXpa0TUtEYWx86T+MXy/xlcXB/drYZ44+aXolMF+wJ4QDDMA\u003d\u003d"
     },
     "config.rb.tpl.merge": {
       "33f446bd02c3fd24eb27891582eff6a2e789796b": "eJxLLi2KT8ksUrBVcMvMSdUDMvMSc1M14uPdPH1c4+M1ufJLSwpKS+KLSypzUoGqrPJSi0tSU7gALskTcA\u003d\u003d"
@@ -32,8 +32,8 @@
       "parameters": {
         "pkgName": "deft",
         "senchadir": ".sencha",
-        "touchRelPath": "../../../../joukou/sencha-touch",
-        "extRelPath": "../../../../joukou/sencha-ext",
+        "touchRelPath": "../../../touch",
+        "extRelPath": "../../../sencha-ext",
         "pkgType": "code"
       }
     },
@@ -43,8 +43,8 @@
       "parameters": {
         "pkgName": "deft",
         "senchadir": ".sencha",
-        "touchRelPath": "../../../../joukou/sencha-touch",
-        "extRelPath": "../../../../joukou/sencha-ext",
+        "touchRelPath": "../../../touch",
+        "extRelPath": "../../../sencha-ext",
         "pkgType": "code"
       }
     },
@@ -54,8 +54,8 @@
       "parameters": {
         "pkgName": "deft",
         "senchadir": ".sencha",
-        "touchRelPath": "../../../../joukou/sencha-touch",
-        "extRelPath": "../../../../joukou/sencha-ext",
+        "touchRelPath": "../../../touch",
+        "extRelPath": "../../../sencha-ext",
         "pkgType": "code"
       }
     },
@@ -65,8 +65,8 @@
       "parameters": {
         "pkgName": "deft",
         "senchadir": ".sencha",
-        "touchRelPath": "../../../../joukou/sencha-touch",
-        "extRelPath": "../../../../joukou/sencha-ext",
+        "touchRelPath": "../../../touch",
+        "extRelPath": "../../../sencha-ext",
         "pkgType": "code"
       }
     },
@@ -76,19 +76,19 @@
       "parameters": {
         "pkgName": "deft",
         "senchadir": ".sencha",
-        "touchRelPath": "../../../../joukou/sencha-touch",
-        "extRelPath": "../../../../joukou/sencha-ext",
+        "touchRelPath": "../../../touch",
+        "extRelPath": "../../../sencha-ext",
         "pkgType": "code"
       }
     },
     "sass/example/theme.html": {
       "source": "theme.html.tpl.merge",
-      "version": "79ec5194c052d6cc313e842c4e2763fa562c7b70",
+      "version": "8865d5dd462e8fe127bbe970f5e10803ed934755",
       "parameters": {
         "pkgName": "deft",
         "senchadir": ".sencha",
-        "touchRelPath": "../../../../joukou/sencha-touch",
-        "extRelPath": "../../../../joukou/sencha-ext",
+        "touchRelPath": "../../../touch",
+        "extRelPath": "../../../sencha-ext",
         "pkgType": "code"
       }
     },
@@ -98,8 +98,8 @@
       "parameters": {
         "pkgName": "deft",
         "senchadir": ".sencha",
-        "touchRelPath": "../../../../joukou/sencha-touch",
-        "extRelPath": "../../../../joukou/sencha-ext",
+        "touchRelPath": "../../../touch",
+        "extRelPath": "../../../sencha-ext",
         "pkgType": "code"
       }
     },
@@ -109,8 +109,8 @@
       "parameters": {
         "pkgName": "deft",
         "senchadir": ".sencha",
-        "touchRelPath": "../../../../joukou/sencha-touch",
-        "extRelPath": "../../../../joukou/sencha-ext",
+        "touchRelPath": "../../../touch",
+        "extRelPath": "../../../sencha-ext",
         "pkgType": "code"
       }
     }
