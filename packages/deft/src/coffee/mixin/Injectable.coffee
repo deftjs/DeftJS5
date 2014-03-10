@@ -22,21 +22,12 @@ Ext.define( 'Deft.mixin.Injectable',
 		return
 ,
 	->
-		if Ext.getVersion( 'extjs' ) and Ext.getVersion( 'core' ).isLessThan( '4.1.0' )
-			# Ext JS 4.0
-			createInjectionInterceptor = ->
-				return ->
-					if not @$injected
-						Deft.Injector.inject( @inject, @, arguments, false )
-						@$injected = true
-					return @callOverridden( arguments )
-		else
-			# Sencha Touch 2.0+, Ext JS 4.1+
-			createInjectionInterceptor = ->
-				return ->
-					if not @$injected
-						Deft.Injector.inject( @inject, @, arguments, false )
-						@$injected = true
+		# Sencha Touch 2.0+, Ext JS 4.1+
+		createInjectionInterceptor = ->
+			return ->
+				if not @$injected
+					Deft.Injector.inject( @inject, @, arguments, false )
+					@$injected = true
 					return @callParent( arguments )
 
 		Deft.Class.registerPreprocessor(

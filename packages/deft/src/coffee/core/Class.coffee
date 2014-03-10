@@ -7,13 +7,13 @@ Open source under the [MIT License](http://en.wikipedia.org/wiki/MIT_License).
 * A collection of useful static methods for interacting with (and normalizing differences between) the Sencha Touch and Ext JS class systems.
 * @private
 ###
-Ext.define( 'Deft.core.Class', 
+Ext.define( 'Deft.core.Class',
 	alternateClassName: [ 'Deft.Class' ]
-	
+
 	statics:
 		###*
 		* Register a new pre-processor to be used during the class creation process.
-		* 
+		*
 		* (Normalizes API differences between the various Sencha frameworks and versions.)
 		*
 		* @param {String} name The pre-processor's name.
@@ -22,54 +22,31 @@ Ext.define( 'Deft.core.Class',
 		* @param {String} relativeTo Optional name of a previously registered pre-processor, for 'before' and 'after' relative positioning.
 		###
 		registerPreprocessor: ( name, fn, position, relativeTo ) ->
-			if Ext.getVersion( 'extjs' ) and Ext.getVersion( 'core' ).isLessThan( '4.1.0' )
-				# Ext JS 4.0
-				Ext.Class.registerPreprocessor( 
-					name
-					( Class, data, callback ) ->
-						return fn.call( @, Class, data, data, callback )
-				
-				).setDefaultPreprocessorPosition( name, position, relativeTo )
-			else
-				# Sencha Touch 2.0+, Ext JS 4.1+
-				Ext.Class.registerPreprocessor( 
-					name
-					( Class, data, hooks, callback ) ->
-						return fn.call( @, Class, data, hooks, callback )
-					[ name ]
-					position
-					relativeTo
-				)
+			Ext.Class.registerPreprocessor(
+				name
+				( Class, data, hooks, callback ) ->
+					return fn.call( @, Class, data, hooks, callback )
+				[ name ]
+				position
+				relativeTo
+			)
 			return
-		
+
 		###*
 		* Intercept class creation.
 		*
 		* (Normalizes API differences between the various Sencha frameworks and versions.)
 		###
 		hookOnClassCreated: ( hooks, fn ) ->
-			if Ext.getVersion( 'extjs' ) and Ext.getVersion( 'core' ).isLessThan( '4.1.0' )
-				# Ext JS 4.0
-				Ext.Function.interceptBefore( hooks, 'onClassCreated', fn )
-			else
-				# Sencha Touch 2.0+, Ext JS 4.1+
-				Ext.Function.interceptBefore( hooks, 'onCreated', fn )
+			Ext.Function.interceptBefore( hooks, 'onCreated', fn )
 			return
-		
+
 		###*
 		* Intercept class extension.
 		*
 		* (Normalizes API differences between the various Sencha frameworks and versions.)
 		###
-		hookOnClassExtended: ( data, fn ) ->
-			if Ext.getVersion( 'extjs' ) and Ext.getVersion( 'core' ).isLessThan( '4.1.0' )
-				# Ext JS 4.0
-				onClassExtended = ( Class, data ) ->
-					return fn.call( @, Class, data, data )
-			else
-				# Sencha Touch 2.0+, Ext JS 4.1+
-				onClassExtended = fn
-			
+		hookOnClassExtended: ( data, onClassExtended ) ->
 			if data.onClassExtended?
 				Ext.Function.interceptBefore( data, 'onClassExtended', onClassExtended )
 			else

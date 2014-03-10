@@ -124,25 +124,25 @@ Ext.define( 'Deft.mvc.ViewController',
 		'Deft.mvc.ComponentSelector'
 		'Deft.mvc.Observer'
 	]
-	
+
 	config:
 		###*
 		* View controlled by this ViewController.
 		###
 		view: null
-	
+
 	###*
 	* Observers automatically created and removed by this ViewController.
 	###
 	observe: {}
-	
+
 	constructor: ( config = {} ) ->
 		if config.view
 			@controlView( config.view )
 		@initConfig( config ) # Ensure any config values are set before creating observers.
 		if Ext.Object.getSize( @observe ) > 0 then @createObservers()
 		return @
-	
+
 	###*
 	* @protected
 	###
@@ -151,19 +151,11 @@ Ext.define( 'Deft.mvc.ViewController',
 			@setView( view )
 			@registeredComponentReferences = {}
 			@registeredComponentSelectors = {}
-			
-			if Ext.getVersion( 'extjs' )?
-				# Ext JS
-				if @getView().rendered
-					@onViewInitialize()
-				else
-					@getView().on( 'afterrender', @onViewInitialize, @, single: true )
+
+			if @getView().initialized
+				@onViewInitialize()
 			else
-				# Sencha Touch
-				if @getView().initialized
-					@onViewInitialize()
-				else
-					@getView().on( 'initialize', @onViewInitialize, @, single: true )
+				@getView().on( 'initialize', @onViewInitialize, @, single: true )
 		else
 			Ext.Error.raise( msg: 'Error constructing ViewController: the configured \'view\' is not an Ext.Component.' )
 		return
@@ -173,7 +165,7 @@ Ext.define( 'Deft.mvc.ViewController',
 	###
 	init: ->
 		return
-	
+
 	###*
 	* Destroy the ViewController
 	###
@@ -184,23 +176,18 @@ Ext.define( 'Deft.mvc.ViewController',
 			@removeComponentSelector( selector )
 		@removeObservers()
 		return true
-	
+
 	###*
 	* @private
 	###
 	onViewInitialize: ->
-		if Ext.getVersion( 'extjs' )?
-			# Ext JS
-			@getView().on( 'beforedestroy', @onViewBeforeDestroy, @ )
-		else
-			# Sencha Touch
-			self = this
-			originalViewDestroyFunction = @getView().destroy
-			@getView().destroy = ->
-				if self.destroy()
-					originalViewDestroyFunction.call( @ )
-				return
-		
+		self = this
+		originalViewDestroyFunction = @getView().destroy
+		@getView().destroy = ->
+			if self.destroy()
+				originalViewDestroyFunction.call( @ )
+			return
+
 		for id, config of @control
 			selector = null
 			if id isnt 'view'
@@ -218,10 +205,10 @@ Ext.define( 'Deft.mvc.ViewController',
 			live = config.live? and config.live
 			@addComponentReference( id, selector, live )
 			@addComponentSelector( selector, listeners, live )
-		
+
 		@init()
 		return
-	
+
 	###*
 	* @private
 	###
@@ -230,16 +217,16 @@ Ext.define( 'Deft.mvc.ViewController',
 			@getView().un( 'beforedestroy', @onViewBeforeDestroy, @ )
 			return true
 		return false
-	
+
 	###*
 	* Add a component accessor method the ViewController for the specified view-relative selector.
 	###
 	addComponentReference: ( id, selector, live = false ) ->
 		Deft.Logger.log( "Adding '#{ id }' component reference for selector: '#{ selector }'." )
-		
+
 		if @registeredComponentReferences[ id ]?
 			Ext.Error.raise( msg: "Error adding component reference: an existing component reference was already registered as '#{ id }'." )
-		
+
 		# Add generated getter function.
 		if id isnt 'view'
 			getterName = 'get' + Ext.String.capitalize( id )
@@ -252,29 +239,29 @@ Ext.define( 'Deft.mvc.ViewController',
 						Ext.Error.raise( msg: "Error locating component: no component(s) found matching '#{ selector }'." )
 					@[ getterName ] = -> matches
 				@[ getterName ].generated = true
-		
+
 		@registeredComponentReferences[ id ] = true
 		return
-	
+
 	###*
 	* Remove a component accessor method the ViewController for the specified view-relative selector.
 	###
 	removeComponentReference: ( id ) ->
 		Deft.Logger.log( "Removing '#{ id }' component reference." )
-		
+
 		unless @registeredComponentReferences[ id ]?
 			Ext.Error.raise( msg: "Error removing component reference: no component reference is registered as '#{ id }'." )
-		
+
 		# Remove generated getter function.
 		if id isnt 'view'
 			getterName = 'get' + Ext.String.capitalize( id )
 			if @[ getterName ].generated
 				@[ getterName ] = null
-		
+
 		delete @registeredComponentReferences[ id ]
-		
+
 		return
-	
+
 	###*
 	* Get the component(s) corresponding to the specified view-relative selector.
 	###
@@ -289,17 +276,17 @@ Ext.define( 'Deft.mvc.ViewController',
 				return matches
 		else
 			return @getView()
-	
+
 	###*
 	* Add a component selector with the specified listeners for the specified view-relative selector.
 	###
 	addComponentSelector: ( selector, listeners, live = false ) ->
 		Deft.Logger.log( "Adding component selector for: '#{ selector }'." )
-		
+
 		existingComponentSelector = @getComponentSelector( selector )
 		if existingComponentSelector?
 			Ext.Error.raise( msg: "Error adding component selector: an existing component selector was already registered for '#{ selector }'." )
-		
+
 		componentSelector = Ext.create( 'Deft.mvc.ComponentSelector',
 			view: @getView()
 			selector: selector
@@ -308,30 +295,30 @@ Ext.define( 'Deft.mvc.ViewController',
 			live: live
 		)
 		@registeredComponentSelectors[ selector ] = componentSelector
-		
+
 		return
-	
+
 	###*
 	* Remove a component selector with the specified listeners for the specified view-relative selector.
 	###
 	removeComponentSelector: ( selector ) ->
 		Deft.Logger.log( "Removing component selector for '#{ selector }'." )
-		
+
 		existingComponentSelector = @getComponentSelector( selector )
 		unless existingComponentSelector?
 			Ext.Error.raise( msg: "Error removing component selector: no component selector registered for '#{ selector }'." )
-		
+
 		existingComponentSelector.destroy()
 		delete @registeredComponentSelectors[ selector ]
-		
+
 		return
-	
+
 	###*
 	* Get the component selectorcorresponding to the specified view-relative selector.
 	###
 	getComponentSelector: ( selector ) ->
 		return @registeredComponentSelectors[ selector ]
-	
+
 	###*
 	* @protected
 	###
@@ -339,9 +326,9 @@ Ext.define( 'Deft.mvc.ViewController',
 		@registeredObservers = {}
 		for target, events of @observe
 			@addObserver( target, events )
-		
+
 		return
-	
+
 	addObserver: ( target, events ) ->
 		observer = Ext.create( 'Deft.mvc.Observer',
 			host: @
@@ -349,7 +336,7 @@ Ext.define( 'Deft.mvc.ViewController',
 			events: events
 		)
 		@registeredObservers[ target ] = observer
-	
+
 	###*
 	* @protected
 	###
@@ -357,7 +344,7 @@ Ext.define( 'Deft.mvc.ViewController',
 		for target, observer of @registeredObservers
 			observer.destroy()
 			delete @registeredObservers[ target ]
-		
+
 		return
 , ->
 	###*
