@@ -6,11 +6,7 @@ Open source under the [MIT License](http://en.wikipedia.org/wiki/MIT_License).
 describe( 'Deft.mvc.ViewController', ->
 
 	hasListener = ( observable, eventName ) ->
-		# Ext JS's implementation of `Ext.util.Observable::hasListener()` returns inaccurate information after `Ext.util.Observable::clearListeners()` is called.
-		if ( observable.hasListener( eventName ) or observable.events[ eventName ]?.listeners?.length > 0 )
-			return true
-		else
-			return false
+		!!observable.hasListener( eventName )
 
 	describe( 'Configuration', ->
 
