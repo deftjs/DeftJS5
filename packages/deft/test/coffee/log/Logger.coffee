@@ -7,168 +7,57 @@ describe( 'Deft.log.Logger', ->
 
 	describe( 'log()', ->
 
-		if Ext.getVersion( 'extjs' )?
-			# Ext JS
+		describe( 'logs a message with the specified priority', ->
+			logFunction = null
 
-			describe( 'logs a message with the specified priority', ->
-				logFunction = null
-
-				beforeEach( ->
-					logFunction = sinon.stub( Ext, 'log' )
-					return
-				)
-
-				afterEach( ->
-					logFunction.restore()
-					return
-				)
-
-				specify( 'no priority specified', ->
-					Deft.Logger.log( 'message', 'info' )
-
-					expect( logFunction ).to.be.calledOnce.and.calledWith( { level: 'info', msg: 'message' } )
-					return
-				)
-
-				specify( 'verbose', ->
-					Deft.Logger.log( 'message', 'verbose' )
-
-					expect( logFunction ).to.be.calledOnce.and.calledWith( { level: 'info', msg: 'message' } )
-					return
-				)
-
-				specify( 'deprecate', ->
-					Deft.Logger.log( 'message', 'deprecate' )
-
-					expect( logFunction ).to.be.calledOnce.and.calledWith( { level: 'warn', msg: 'message' } )
-					return
-				)
-
-				specify( 'warn', ->
-					Deft.Logger.log( 'message', 'warn' )
-
-					expect( logFunction ).to.be.calledOnce.and.calledWith( { level: 'warn', msg: 'message' } )
-					return
-				)
-
-				specify( 'error', ->
-					Deft.Logger.log( 'message', 'error' )
-
-					expect( logFunction ).to.be.calledOnce.and.calledWith( { level: 'error', msg: 'message' } )
-					return
-				)
-
+			beforeEach( ->
+				logFunction = sinon.stub( Ext, 'log' )
 				return
 			)
 
-		else
-			# Sencha Touch
-
-			describe( 'logs a message with the specified priority, when Ext.Logger is available', ->
-				logFunction = null
-
-				beforeEach( ->
-					if not Ext.Logger?
-						Ext.define( 'Ext.Logger',
-							singleton: true
-							log: Ext.emptyFn
-							isMock: true
-						)
-					logFunction = sinon.stub( Ext.Logger, 'log' )
-				)
-
-				afterEach( ->
-					logFunction.restore()
-					if Ext.Logger.isMock
-						Ext.Logger = null
-				)
-
-				specify( 'no priority specified', ->
-					Deft.Logger.log( 'message', 'info' )
-
-					expect( logFunction ).to.be.calledOnce.and.calledWith( 'message', 'info' )
-					return
-				)
-
-				specify( 'verbose', ->
-					Deft.Logger.log( 'message', 'verbose' )
-
-					expect( logFunction ).to.be.calledOnce.and.calledWith( 'message', 'verbose' )
-					return
-				)
-
-				specify( 'info', ->
-					Deft.Logger.log( 'message', 'info' )
-
-					expect( logFunction ).to.be.calledOnce.and.calledWith( 'message', 'info' )
-					return
-				)
-
-				specify( 'deprecate', ->
-					Deft.Logger.log( 'message', 'deprecate' )
-
-					expect( logFunction ).to.be.calledOnce.and.calledWith( 'message', 'deprecate' )
-					return
-				)
-
-				specify( 'warn', ->
-					Deft.Logger.log( 'message', 'warn' )
-
-					expect( logFunction ).to.be.calledOnce.and.calledWith( 'message', 'warn' )
-					return
-				)
-
-				specify( 'error', ->
-					Deft.Logger.log( 'message', 'error' )
-
-					expect( logFunction ).to.be.calledOnce.and.calledWith( 'message', 'error' )
-					return
-				)
-
+			afterEach( ->
+				logFunction.restore()
 				return
 			)
 
-			describe( 'silently ignores messages when Ext.Logger is unavailable', ->
-				logger = null
+			specify( 'no priority specified', ->
+				Deft.Logger.log( 'message', 'info' )
 
-				beforeEach( ->
-					logger = Ext.Logger
-					Ext.Logger = null
-					return
-				)
-
-				afterEach( ->
-					Ext.Logger = logger
-					return
-				)
-
-				specify( 'no priority specified', ->
-					expect( -> Deft.Logger.log( 'message', 'info' ) ).to.not.throw( Error )
-					return
-				)
-
-				specify( 'verbose', ->
-					expect( -> Deft.Logger.log( 'message', 'verbose' ) ).to.not.throw( Error )
-					return
-				)
-
-				specify( 'deprecate', ->
-					expect( -> Deft.Logger.log( 'message', 'deprecate' ) ).to.not.throw( Error )
-					return
-				)
-
-				specify( 'warn', ->
-					expect( -> Deft.Logger.log( 'message', 'warn' ) ).to.not.throw( Error )
-					return
-				)
-
-				specify( 'error', ->
-					expect( -> Deft.Logger.log( 'message', 'error' ) ).to.not.throw( Error )
-					return
-				)
-
+				expect( logFunction ).to.be.calledOnce.and.calledWith( { level: 'info', msg: 'message' } )
 				return
 			)
+
+			specify( 'verbose', ->
+				Deft.Logger.log( 'message', 'verbose' )
+
+				expect( logFunction ).to.be.calledOnce.and.calledWith( { level: 'info', msg: 'message' } )
+				return
+			)
+
+			specify( 'deprecate', ->
+				Deft.Logger.log( 'message', 'deprecate' )
+
+				expect( logFunction ).to.be.calledOnce.and.calledWith( { level: 'warn', msg: 'message' } )
+				return
+			)
+
+			specify( 'warn', ->
+				Deft.Logger.log( 'message', 'warn' )
+
+				expect( logFunction ).to.be.calledOnce.and.calledWith( { level: 'warn', msg: 'message' } )
+				return
+			)
+
+			specify( 'error', ->
+				Deft.Logger.log( 'message', 'error' )
+
+				expect( logFunction ).to.be.calledOnce.and.calledWith( { level: 'error', msg: 'message' } )
+				return
+			)
+
+			return
+		)
+
 	)
 
 	describe( 'verbose()', ->
