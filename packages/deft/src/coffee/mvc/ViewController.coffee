@@ -152,10 +152,10 @@ Ext.define( 'Deft.mvc.ViewController',
 			@registeredComponentReferences = {}
 			@registeredComponentSelectors = {}
 
-			if @getView().initialized
+			if @getView().rendered
 				@onViewInitialize()
 			else
-				@getView().on( 'initialize', @onViewInitialize, @, single: true )
+				@getView().on( 'afterrender', @onViewInitialize, @, single: true )
 		else
 			Ext.Error.raise( msg: 'Error constructing ViewController: the configured \'view\' is not an Ext.Component.' )
 		return
