@@ -232,16 +232,11 @@ Ext.define( 'Deft.ioc.Injector',
 			for name, value of injectConfig
 				setterFunctionName = 'set' + Ext.String.capitalize( name )
 				targetInstance[ setterFunctionName ].call( targetInstance, value )
-		else
-			if targetInstance instanceof Ext.ClassManager.get( 'Ext.Component' )
-				# NOTE: Ext JS's Ext.Component doesn't "play by the rules" and never actually calls Ext.Base::initConfig().
-				# Store the configs to be injected and apply via the constructor override define below.
-				targetInstance.injectConfig = injectConfig
-			else if Deft.isFunction( targetInstance.initConfig )
-				originalInitConfigFunction = targetInstance.initConfig
-				targetInstance.initConfig = ( config ) ->
-					result = originalInitConfigFunction.call( @, Ext.Object.merge( {}, config or {}, injectConfig ) )
-					return result
+		else if Deft.isFunction( targetInstance.initConfig )
+			originalInitConfigFunction = targetInstance.initConfig
+			targetInstance.initConfig = ( config ) ->
+				result = originalInitConfigFunction.call( @, Ext.Object.merge( {}, config or {}, injectConfig ) )
+				return result
 
 		return targetInstance
 ,
