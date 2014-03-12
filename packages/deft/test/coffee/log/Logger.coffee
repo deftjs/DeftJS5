@@ -11,7 +11,10 @@ describe( 'Deft.log.Logger', ->
 			logFunction = null
 
 			beforeEach( ->
-				logFunction = sinon.stub( Ext, 'log' )
+				if Deft.isFunction( Ext.log )
+					logFunction = sinon.stub( Ext, 'log' )
+				else
+					logFunction = sinon.stub( Ext.Logger, 'log' )
 				return
 			)
 
