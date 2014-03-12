@@ -67,7 +67,7 @@ The best place to ask for help is on the [Deft JS Google Group](https://groups.g
 
 # Version History
 
-* 0.10.0 - ExtJS 5 compliance; removed Controllable.
+* 5.0.0 - ExtJS 5 compliance; removed Controllable.
 * 0.9.0 - Promises and Deferreds rewritten to be Promises/A+ compliant, migrated from Jasmine to Mocha.
 * 0.8.0 - Moved from mixins to class preprocessors. Added: Promises API, ViewController Observer feature, Deft.Application class, hundreds of Jasmine tests, improved logging, JSDuck documentation, and numerous other improvements.
 * 0.6.7 - Controllable now automatically adds a `getController()` accessor to view. Fixes reported issue with Deferreds completed with 'undefined' values.
