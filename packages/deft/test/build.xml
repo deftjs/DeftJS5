@@ -15,6 +15,11 @@
 			<arg line="start karma/ext/5.0.0.conf.js --single-run --browsers ${karma.browsers}" />
 		</exec>
 
+   	<echo message="Sencha Touch 5.0.0" />
+ 		<exec executable="karma" failonerror="true">
+      <arg line="start karma/touch/5.0.0.conf.js --single-run --browsers ${karma.browsers}" />
+    </exec>
+
 	</target>
 	
 	<target name="coverage" description="Tests and generates a coverage report for Deft JS against all supported versions of Sencha Touch and Ext JS">
@@ -25,6 +30,11 @@
 		<exec executable="karma" failonerror="true">
 			<arg line="start karma/ext/5.0.0.conf.js --single-run --browsers ${karma.browsers} --reporters=progress,coverage" />
 		</exec>
+
+   	<echo message="Sencha Touch 5.0.0" />
+ 		<exec executable="karma" failonerror="true">
+      <arg line="start karma/touch/5.0.0.conf.js --single-run --browsers ${karma.browsers} --reporters=progress,coverage" />
+    </exec>
 
 	</target>
 
