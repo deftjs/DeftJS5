@@ -5,7 +5,7 @@ Open source under the [MIT License](http://en.wikipedia.org/wiki/MIT_License).
 
 ###*
 * Logger used by DeftJS.
-* 
+*
 * Output is displayed in the console when using `ext-dev`/`ext-all-dev` or `sencha-debug`/`sencha-all-debug`.
 *
 * @private
@@ -73,23 +73,12 @@ Ext.define( 'Deft.log.Logger',
 		return
 ,
 	->
-		if Ext.getVersion( 'extjs' )?
-			# Ext JS
-			@log = ( message, priority = 'info' ) ->
-				if priority is 'verbose'
-					priority = 'info'
-				if priority is 'deprecate'
-					priority = 'warn'
-				Ext.log(
-					msg: message
-					level: priority
-				)
-				return
-		else
-			# Sencha Touch
-			@log = ( message, priority = 'info' ) ->
-				if Ext.Logger? and Deft.isFunction( Ext.Logger.log )
-					Ext.Logger.log( message, priority )
-				return
-		return
+		@log = ( message, priority = 'info' ) ->
+			if priority is 'verbose'
+				priority = 'info'
+			if priority is 'deprecate'
+				priority = 'warn'
+
+			Ext.Logger.log( message, priority )
+			return
 )
