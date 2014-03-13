@@ -14,7 +14,7 @@ module.exports = function(config) {
 
 		// list of files / patterns to load in the browser
 		files: [
-			'http://cdn.sencha.com/ext/gpl/4.2.1/ext-all.js',
+			'../../../touch/builds/sencha-touch-all-compat.js',
 			'build/deft-debug.js',
 
 			'test/lib/chai-1.8.1/chai.js',
@@ -34,8 +34,6 @@ module.exports = function(config) {
 			'test/js/log/Logger.js',
 			'test/js/ioc/Injector.js',
 			'test/js/mixin/Injectable.js',
-			'test/js/mixin/Controllable.js',
-			'test/js/mvc/ViewController.js',
 			'test/lib/promises-aplus-tests-2.0.3/promises-aplus-tests.js',
 			'test/js/promise/Promise.js',
 			'test/js/promise/Chain.js'
@@ -52,7 +50,7 @@ module.exports = function(config) {
 
 		coverageReporter: {
 			type: 'html',
-			dir: 'test/coverage/ext/4.2.1'
+			dir: 'test/coverage/touch/5.0.0'
 		},
 
 		// test results reporter to use

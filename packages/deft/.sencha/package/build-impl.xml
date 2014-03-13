@@ -66,6 +66,7 @@ this file in most cases.
     system properties and ant task definitions
     ===============================================================
     -->
+    <import file="${basedir}/.sencha/package/refresh-impl.xml"/>
     <import file="${basedir}/.sencha/package/init-impl.xml"/>
     <target name="init"
             depends="init-local,
