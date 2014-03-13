@@ -7,14 +7,15 @@ describe( 'Deft.log.Logger', ->
 
 	describe( 'log()', ->
 
+
 		describe( 'logs a message with the specified priority', ->
 			logFunction = null
 
+			checkCall = ( message, priority ) ->
+				expect( logFunction ).to.be.calledOnce.and.calledWith( message, priority )
+
 			beforeEach( ->
-				if Deft.isFunction( Ext.log )
-					logFunction = sinon.stub( Ext, 'log' )
-				else
-					logFunction = sinon.stub( Ext.Logger, 'log' )
+				logFunction = sinon.stub( Ext.Logger, 'log' )
 				return
 			)
 
@@ -26,35 +27,35 @@ describe( 'Deft.log.Logger', ->
 			specify( 'no priority specified', ->
 				Deft.Logger.log( 'message', 'info' )
 
-				expect( logFunction ).to.be.calledOnce.and.calledWith( { level: 'info', msg: 'message' } )
+				checkCall( 'message', 'info' )
 				return
 			)
 
 			specify( 'verbose', ->
 				Deft.Logger.log( 'message', 'verbose' )
 
-				expect( logFunction ).to.be.calledOnce.and.calledWith( { level: 'info', msg: 'message' } )
+				checkCall( 'message', 'info' )
 				return
 			)
 
 			specify( 'deprecate', ->
 				Deft.Logger.log( 'message', 'deprecate' )
 
-				expect( logFunction ).to.be.calledOnce.and.calledWith( { level: 'warn', msg: 'message' } )
+				checkCall( 'message', 'warn' )
 				return
 			)
 
 			specify( 'warn', ->
 				Deft.Logger.log( 'message', 'warn' )
 
-				expect( logFunction ).to.be.calledOnce.and.calledWith( { level: 'warn', msg: 'message' } )
+				checkCall( 'message', 'warn' )
 				return
 			)
 
 			specify( 'error', ->
 				Deft.Logger.log( 'message', 'error' )
 
-				expect( logFunction ).to.be.calledOnce.and.calledWith( { level: 'error', msg: 'message' } )
+				checkCall( 'message', 'error' )
 				return
 			)
 

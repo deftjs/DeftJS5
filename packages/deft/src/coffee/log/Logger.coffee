@@ -79,12 +79,6 @@ Ext.define( 'Deft.log.Logger',
 			if priority is 'deprecate'
 				priority = 'warn'
 
-			if Deft.isFunction( Ext.log )
-				Ext.log(
-					msg: message
-					level: priority
-				)
-			else if Deft.isFunction( Ext.Logger?.log )
-				Ext.Logger.log(message, priority)
+			Ext.Logger.log( message, priority )
 			return
 )
