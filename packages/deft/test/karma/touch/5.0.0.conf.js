@@ -14,7 +14,7 @@ module.exports = function(config) {
 
 		// list of files / patterns to load in the browser
 		files: [
-			'../../../touch/sencha-touch-all.js',
+			'../../../touch/builds/sencha-touch-all-compat.js',
 			'build/deft-debug.js',
 
 			'test/lib/chai-1.8.1/chai.js',
