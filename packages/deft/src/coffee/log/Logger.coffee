@@ -73,7 +73,6 @@ Ext.define( 'Deft.log.Logger',
 		return
 ,
 	->
-    logFn = Ext.log || Ext.Logger?.log
 		@log = ( message, priority = 'info' ) ->
 			if priority is 'verbose'
 				priority = 'info'
