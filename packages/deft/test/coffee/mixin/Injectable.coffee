@@ -5,10 +5,17 @@ Open source under the [MIT License](http://en.wikipedia.org/wiki/MIT_License).
 
 describe( 'Deft.mixin.Injectable', ->
 
+	afterEach( ->
+ 		# Ensure that injector stub is restored in the event of a spec failure.
+ 		Deft.Injector.inject.restore?()
+ 		return
+ 	)
+
 	specify( 'should trigger injection before the target class constructor is executed', ->
 		injectStub = sinon.stub( Deft.Injector, 'inject' )
 
 		Ext.define( 'ExampleClass',
+			mixins: [ 'Deft.mixin.Injectable' ]
 			inject: [ 'identifier' ]
 
 			constructor: ->
@@ -21,8 +28,6 @@ describe( 'Deft.mixin.Injectable', ->
 
 		exampleInstance = Ext.create( 'ExampleClass' )
 
-		Deft.Injector.inject.restore()
-
 		delete ExampleClass
 
 		return
@@ -32,11 +37,13 @@ describe( 'Deft.mixin.Injectable', ->
 		injectStub = sinon.stub( Deft.Injector, 'inject' )
 
 		Ext.define( 'ExampleClass',
+			mixins: [ 'Deft.mixin.Injectable' ]
 			inject: [ 'identifier1' ]
 		)
 
 		Ext.define( 'ExampleSubclass',
 			extend: 'ExampleClass'
+			mixins: [ 'Deft.mixin.Injectable' ]
 			inject: [ 'identifier2' ]
 
 			constructor: ->
@@ -52,8 +59,6 @@ describe( 'Deft.mixin.Injectable', ->
 
 		expect( injectStub ).to.be.calledOnce
 
-		Deft.Injector.inject.restore()
-
 		delete ExampleClass
 		delete ExampleSubclass
 
@@ -64,16 +69,19 @@ describe( 'Deft.mixin.Injectable', ->
 		injectStub = sinon.stub( Deft.Injector, 'inject' )
 
 		Ext.define( 'ExampleClass',
+			mixins: [ 'Deft.mixin.Injectable' ]
 			inject: [ 'identifier1' ]
 		)
 
 		Ext.define( 'ExampleSubclass',
 			extend: 'ExampleClass'
+			mixins: [ 'Deft.mixin.Injectable' ]
 			inject: [ 'identifier2' ]
 		)
 
 		Ext.define( 'ExampleSubclass2',
 			extend: 'ExampleSubclass'
+			mixins: [ 'Deft.mixin.Injectable' ]
 			inject: [ 'identifier3', 'identifier4' ]
 
 			constructor: ->
@@ -91,8 +99,6 @@ describe( 'Deft.mixin.Injectable', ->
 
 		expect( injectStub ).to.be.calledOnce
 
-		Deft.Injector.inject.restore()
-
 		delete ExampleClass
 		delete ExampleSubclass
 		delete ExampleSubclass2
@@ -104,6 +110,7 @@ describe( 'Deft.mixin.Injectable', ->
 		injectStub = sinon.stub( Deft.Injector, 'inject' )
 
 		Ext.define( 'ExampleClass',
+			mixins: [ 'Deft.mixin.Injectable' ]
 			inject: [ 'identifier1', 'identifier2' ]
 		)
 
@@ -115,19 +122,18 @@ describe( 'Deft.mixin.Injectable', ->
 			extend: 'ExampleSubclass'
 
 			constructor: ->
-				expect( injectStub ).to.be.calledWith( @inject, @, arguments, false )
+				@callParent()
 				expect( @inject ).to.be.eql(
 					identifier1: 'identifier1'
 					identifier2: 'identifier2'
 				)
-				return @callParent()
+				expect( injectStub ).to.be.calledWith( @inject, @, arguments, false )
+				return
 		)
 
 		exampleInstance = Ext.create( 'ExampleSubclass2' )
 
 		expect( injectStub ).to.be.calledOnce
-
-		Deft.Injector.inject.restore()
 
 		delete ExampleClass
 		delete ExampleSubclass
@@ -140,6 +146,7 @@ describe( 'Deft.mixin.Injectable', ->
 		injectStub = sinon.stub( Deft.Injector, 'inject' )
 
 		Ext.define( 'ExampleClass',
+			mixins: [ 'Deft.mixin.Injectable' ]
 			inject: [ 'identifier1' ]
 		)
 
@@ -149,6 +156,7 @@ describe( 'Deft.mixin.Injectable', ->
 
 		Ext.define( 'ExampleSubclass2',
 			extend: 'ExampleSubclass'
+			mixins: [ 'Deft.mixin.Injectable' ]
 			inject: [ 'identifier2', 'identifier3' ]
 
 			constructor: ->
@@ -165,7 +173,6 @@ describe( 'Deft.mixin.Injectable', ->
 
 		expect( injectStub ).to.be.calledOnce
 
-		Deft.Injector.inject.restore()
 
 		delete ExampleClass
 		delete ExampleSubclass
@@ -181,6 +188,7 @@ describe( 'Deft.mixin.Injectable', ->
 
 		Ext.define( 'ExampleSubclass',
 			extend: 'ExampleClass'
+			mixins: [ 'Deft.mixin.Injectable' ]
 			inject: [ 'identifier1', 'identifier2' ]
 		)
 
@@ -188,19 +196,17 @@ describe( 'Deft.mixin.Injectable', ->
 			extend: 'ExampleSubclass'
 
 			constructor: ->
+				@callParent()
 				expect( injectStub ).to.be.calledWith( @inject, @, arguments, false )
 				expect( @inject ).to.be.eql(
 					identifier1: 'identifier1'
 					identifier2: 'identifier2'
 				)
-				return @callParent()
 		)
 
 		exampleInstance = Ext.create( 'ExampleSubclass2' )
 
 		expect( injectStub ).to.be.calledOnce
-
-		Deft.Injector.inject.restore()
 
 		delete ExampleClass
 		delete ExampleSubclass
@@ -220,6 +226,7 @@ describe( 'Deft.mixin.Injectable', ->
 
 		Ext.define( 'ExampleSubclass2',
 			extend: 'ExampleSubclass'
+			mixins: [ 'Deft.mixin.Injectable' ]
 			inject: [ 'identifier1', 'identifier2' ]
 
 			constructor: ->
@@ -235,8 +242,6 @@ describe( 'Deft.mixin.Injectable', ->
 
 		expect( injectStub ).to.be.calledOnce
 
-		Deft.Injector.inject.restore()
-
 		delete ExampleClass
 		delete ExampleSubclass
 		delete ExampleSubclass2
@@ -248,11 +253,13 @@ describe( 'Deft.mixin.Injectable', ->
 		injectStub = sinon.stub( Deft.Injector, 'inject' )
 
 		Ext.define( 'ExampleClass',
+			mixins: [ 'Deft.mixin.Injectable' ]
 			inject: [ 'identifier1', 'identifier2' ]
 		)
 
 		Ext.define( 'ExampleSubclass',
 			extend: 'ExampleClass'
+			mixins: [ 'Deft.mixin.Injectable' ]
 			inject: 'identifier3'
 
 			constructor: ->
@@ -269,8 +276,6 @@ describe( 'Deft.mixin.Injectable', ->
 
 		expect( injectStub ).to.be.calledOnce
 
-		Deft.Injector.inject.restore()
-
 		delete ExampleClass
 		delete ExampleSubclass
 
@@ -281,11 +286,13 @@ describe( 'Deft.mixin.Injectable', ->
 		injectStub = sinon.stub( Deft.Injector, 'inject' )
 
 		Ext.define( 'ExampleClass',
+			mixins: [ 'Deft.mixin.Injectable' ]
 			inject: [ 'identifier1' ]
 		)
 
 		Ext.define( 'ExampleSubclass',
 			extend: 'ExampleClass'
+			mixins: [ 'Deft.mixin.Injectable' ]
 			inject:
 				identifier2: 'identifier2'
 				identifier3: 'identifier3'
@@ -304,8 +311,6 @@ describe( 'Deft.mixin.Injectable', ->
 
 		expect( injectStub ).to.be.calledOnce
 
-		Deft.Injector.inject.restore()
-
 		delete ExampleClass
 		delete ExampleSubclass
 
@@ -316,6 +321,7 @@ describe( 'Deft.mixin.Injectable', ->
 		injectStub = sinon.stub( Deft.Injector, 'inject' )
 
 		Ext.define( 'ExampleClass',
+			mixins: [ 'Deft.mixin.Injectable' ]
 			inject: [ 'identifier1', 'identifier2', 'identifier3' ]
 		)
 
@@ -325,6 +331,7 @@ describe( 'Deft.mixin.Injectable', ->
 
 		Ext.define( 'ExampleSubclass2',
 			extend: 'ExampleSubclass'
+			mixins: [ 'Deft.mixin.Injectable' ]
 			inject:
 				identifier1: 'overriddenIdentifier1'
 				identifier2: 'overriddenIdentifier2'
@@ -344,8 +351,6 @@ describe( 'Deft.mixin.Injectable', ->
 		exampleInstance = Ext.create( 'ExampleSubclass2' )
 
 		expect( injectStub ).to.be.calledOnce
-
-		Deft.Injector.inject.restore()
 
 		delete ExampleClass
 		delete ExampleSubclass
