@@ -15,10 +15,12 @@
 			<arg line="start karma/ext/5.0.0.conf.js --single-run --browsers ${karma.browsers}" />
 		</exec>
 
+    <!-- no touch testing until 5.0.0 is released 
    	<echo message="Sencha Touch 5.0.0" />
  		<exec executable="karma" failonerror="true">
-      <arg line="start karma/touch/5.0.0.conf.js --single-run --browsers ${karma.browsers}" />
+      <arg line="start karma/touch/5.0.0.conf.js - -single-run - -browsers ${karma.browsers}" />
     </exec>
+    -->
 
 	</target>
 	
