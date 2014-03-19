@@ -11,47 +11,6 @@ Ext.define( 'Deft.core.Class',
 	alternateClassName: [ 'Deft.Class' ]
 
 	statics:
-		###*
-		* Register a new pre-processor to be used during the class creation process.
-		*
-		* (Normalizes API differences between the various Sencha frameworks and versions.)
-		*
-		* @param {String} name The pre-processor's name.
-		* @param {Function} fn The callback function to be executed.
-		* @param {String} position Optional insertion position for this pre-processor - valid options: 'first', 'last', 'before' or 'after'.
-		* @param {String} relativeTo Optional name of a previously registered pre-processor, for 'before' and 'after' relative positioning.
-		###
-		registerPreprocessor: ( name, fn, position, relativeTo ) ->
-			Ext.Class.registerPreprocessor(
-				name
-				( Class, data, hooks, callback ) ->
-					return fn.call( @, Class, data, hooks, callback )
-				[ name ]
-				position
-				relativeTo
-			)
-			return
-
-		###*
-		* Intercept class creation.
-		*
-		* (Normalizes API differences between the various Sencha frameworks and versions.)
-		###
-		hookOnClassCreated: ( hooks, fn ) ->
-			Ext.Function.interceptBefore( hooks, 'onCreated', fn )
-			return
-
-		###*
-		* Intercept class extension.
-		*
-		* (Normalizes API differences between the various Sencha frameworks and versions.)
-		###
-		hookOnClassExtended: ( data, onClassExtended ) ->
-			if data.onClassExtended?
-				Ext.Function.interceptBefore( data, 'onClassExtended', onClassExtended )
-			else
-				data.onClassExtended = onClassExtended
-			return
 
 		###*
 		* Determines whether the passed Class reference is or extends the specified Class (by name).

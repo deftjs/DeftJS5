@@ -5,71 +5,49 @@ Open source under the [MIT License](http://en.wikipedia.org/wiki/MIT_License).
 
 ###*
 * A mixin that marks a class as participating in dependency injection. Used in conjunction with Deft.ioc.Injector.
-* @deprecated 0.8 Deft.mixin.Injectable has been deprecated and can now be omitted - simply use the \'inject\' class annotation on its own.
 ###
 Ext.define( 'Deft.mixin.Injectable',
+	extend: 'Ext.Mixin'
+
 	requires: [
 		'Deft.core.Class'
 		'Deft.ioc.Injector'
 		'Deft.log.Logger'
 	]
 
-	###*
-	@private
-	###
-	onClassMixedIn: ( targetClass ) ->
-		Deft.Logger.deprecate( 'Deft.mixin.Injectable has been deprecated and can now be omitted - simply use the \'inject\' class annotation on its own.' )
-		return
-,
-	->
-		# Sencha Touch 2.0+, Ext JS 4.1+
-		createInjectionInterceptor = ->
-			return ->
-				if not @$injected
-					Deft.Injector.inject( @inject, @, arguments, false )
-					@$injected = true
-					return @callParent( arguments )
+	mixinConfig:
+		before:
+			constructor: 'onCreate'
 
-		Deft.Class.registerPreprocessor(
-			'inject'
-			( Class, data, hooks, callback ) ->
-				# Convert a String or Array of Strings specified for data.inject into an Object.
-				data.inject = [ data.inject ] if Ext.isString( data.inject )
-				if Ext.isArray( data.inject )
-					dataInjectObject = {}
-					for identifier in data.inject
-						dataInjectObject[ identifier ] = identifier
-					data.inject = dataInjectObject
+	isInjectable: true
+	mixinId: 'injectable'
 
-				# Override the constructor for this class with an injection interceptor.
-				Deft.Class.hookOnClassCreated( hooks, ( Class ) ->
-					Class.override(
-						constructor: createInjectionInterceptor()
-					)
-					return
-				)
+	onCreate: () ->
 
-				# Process any classes that extend this class.
-				Deft.Class.hookOnClassExtended( data, ( Class, data, hooks ) ->
-					# Override the constructor for this class with an injection interceptor.
-					Deft.Class.hookOnClassCreated( hooks, ( Class ) ->
-						Class.override(
-							constructor: createInjectionInterceptor()
-						)
-						return
-					)
+		objectifyInject = ( Class ) ->
 
-					# Merge identifiers, ensuring that identifiers in data override identifiers in superclass.
-					data.inject ?= {}
-					Ext.applyIf( data.inject, Class.superclass.inject )
-					return
-				)
+			unless Class
+				return {}
+				injectBase = objectifyInject( Class.superclass )
+			else
+				injectBase = {}
 
-				return
-			'before'
-			'extend'
-		)
+			inject = Class.inject || {}
 
-		return
+			# Convert String/Array to Object for injection
+			inject = [ inject ] if Ext.isString( inject )
+			if Ext.isArray( inject )
+				injectObject = {}
+				for id in inject
+					injectObject[ id ] = id
+				inject = injectObject
+
+			Ext.applyIf( inject, objectifyInject( Class.superclass ) )
+
+		@inject = objectifyInject( @ )
+
+		unless @$injected
+			Deft.Injector.inject( @inject, @, arguments, false )
+			@$injected = true
+
 )
-
