@@ -1,9 +1,24 @@
 # Deft JS 5
 
-[![Build Status](https://travis-ci.org/deftjs/DeftJS5.png?branch=master)](https://travis-ci.org/deftjs/DeftJS5)
+[![Build Status](https://travis-ci.org/deftjs/DeftJS5.svg?branch=develop)](https://travis-ci.org/deftjs/DeftJS5)
 [![Stories in Ready](https://badge.waffle.io/deftjs/DeftJS5.png?label=Ready)](http://waffle.io/deftjs/DeftJS5)
 
 Essential extensions for large-scale web and mobile application development with [Ext JS 5](http://www.sencha.com/products/extjs/).
+
+Special thanks to Sencha for their support, [Joukou](https://joukou.co/) for sponsoring the Deft JS 5 upgrade, the entire Deft JS team for all your hard work and most of all our awesome community for all your support!
+
+# Status of Ext JS 5 Support
+
+All Promise and IoC / Dependency Injection tests are passing against Sencha Ext JS 5 Public Beta and Sencha Cmd 5.0.0.116.
+
+## Todo
+
+1. `Deft.mvc.ViewController` is removed from `develop` pending completion of a compatibility layer for `Ext.app.ViewController`. This is in progress.
+2. Release notes
+3. Migration guide
+4. Generated API documentation 
+5. Wiki documentation
+6. Packaged release (repository access only at present)
 
 # About
 
@@ -100,6 +115,7 @@ The best place to ask for help is on the [Deft JS Google Group](https://groups.g
 * [Isaac Johnston](https://twitter.com/superstructor)
 * [Ryan Campbell](https://twitter.com/bobjim)
 * [David Tucker](https://twitter.com/mindmillmedia)
+* [Rowan Crawford](https://twitter.com/wombleton)
 
 # Acknowledgements
 
