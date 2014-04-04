@@ -9,7 +9,7 @@
   "homepage": "http://deftjs.org/",
   "repository": {
     "type": "git",
-    "url": "https://github.com/deftjs/DeftJS.git"
+    "url": "https://github.com/deftjs/DeftJS5.git"
   },
   "devDependencies": {
     "karma": "~0.10",
