@@ -1,13 +1,13 @@
-# Deft JS
+# Deft JS 5
 
-[![Build Status](https://travis-ci.org/deftjs/DeftJS.png?branch=master)](https://travis-ci.org/deftjs/DeftJS)
-[![Stories in Ready](https://badge.waffle.io/deftjs/DeftJS.png?label=Ready)](http://waffle.io/deftjs/DeftJS)
+[![Build Status](https://travis-ci.org/deftjs/DeftJS5.png?branch=master)](https://travis-ci.org/deftjs/DeftJS5)
+[![Stories in Ready](https://badge.waffle.io/deftjs/DeftJS5.png?label=Ready)](http://waffle.io/deftjs/DeftJS5)
 
-Essential extensions for large-scale web and mobile application development with [Ext JS](http://www.sencha.com/products/extjs/) and [Sencha Touch](http://www.sencha.com/products/touch/).
+Essential extensions for large-scale web and mobile application development with [Ext JS 5](http://www.sencha.com/products/extjs/).
 
 # About
 
-Deft JS enhances Ext JS and Sencha Touch's APIs with additional building blocks that enable large development teams to rapidly build enterprise scale applications, leveraging best practices and proven patterns discovered by top RIA developers at some of the best consulting firms in the industry.
+Deft JS 5 enhances Ext JS 5 with additional building blocks that enable large development teams to rapidly build enterprise scale applications, leveraging best practices and proven patterns discovered by top RIA developers at some of the best consulting firms in the industry.
 
 # Goals
 
@@ -55,11 +55,11 @@ Deft JS enhances Ext JS and Sencha Touch's APIs with additional building blocks 
 
 # Documentation Wiki
 
-Full documentation on the features and usage of Deft JS is available in the [Wiki](https://github.com/deftjs/DeftJS/wiki).
+Full documentation on the features and usage of Deft JS 5 is available in the [Wiki](https://github.com/deftjs/DeftJS5/wiki).
 
 # API Docs
 
-The latest API documentation for Deft JS is available at [http://docs.deftjs.org/deft-js/latest/](http://docs.deftjs.org/deft-js/latest/). If you're interested in API docs for a specific version, you can substitue the version in the URL (e.g. [http://docs.deftjs.org/deft-js/0-8-0/](http://docs.deftjs.org/deft-js/0-8-0/))
+The latest API documentation for Deft JS 5 is available at [http://docs.deftjs.org/deft-js/latest/](http://docs.deftjs.org/deft-js/latest/). If you're interested in API docs for a specific version, you can substitue the version in the URL (e.g. [http://docs.deftjs.org/deft-js/0-8-0/](http://docs.deftjs.org/deft-js/0-8-0/))
 
 # Help
 
@@ -67,7 +67,7 @@ The best place to ask for help is on the [Deft JS Google Group](https://groups.g
 
 # Version History
 
-* 5.0.0 - ExtJS 5 compliance; removed Controllable.
+* 5.0.0 - Ext JS 5 support.
 * 0.9.0 - Promises and Deferreds rewritten to be Promises/A+ compliant, migrated from Jasmine to Mocha.
 * 0.8.0 - Moved from mixins to class preprocessors. Added: Promises API, ViewController Observer feature, Deft.Application class, hundreds of Jasmine tests, improved logging, JSDuck documentation, and numerous other improvements.
 * 0.6.7 - Controllable now automatically adds a `getController()` accessor to view. Fixes reported issue with Deferreds completed with 'undefined' values.
