@@ -177,7 +177,7 @@ Ext.Boot = Ext.Boot || (function (emptyFn) {
                 // If we find a script file called "ext-*.js", then the base path is that file's base path.
                 if (!baseUrl) {
                     if (re.test(src)) {
-                        Boot.hasAsync = ("async" in script);
+                        Boot.hasAsync = ("async" in script) || !('readyState' in script);
                         baseUrl = src;
                     }
                 }
@@ -200,7 +200,7 @@ Ext.Boot = Ext.Boot || (function (emptyFn) {
             if (!baseUrl) {
                 script = scriptEls[scriptEls.length - 1];
                 baseUrl = script.src;
-                Boot.hasAsync = ("async" in script);
+                Boot.hasAsync = ("async" in script) || !('readyState' in script);
             }
             Boot.baseUrl = baseUrl.substring(0, baseUrl.lastIndexOf('/') + 1);
         },
@@ -392,13 +392,13 @@ Ext.Boot = Ext.Boot || (function (emptyFn) {
                 };
             }
 
-            Boot.expandLoadOrder(request);
-
             // If there is a request in progress, we must
             // queue this new request to be fired  when the current request completes.
             if (_currentRequest) {
                 _suspendedQueue.push(request);
             } else {
+                Boot.expandLoadOrder(request);
+
                 var url = request.url,
                     urls = url.charAt ? [ url ] : url,
                     length = urls.length,
@@ -748,7 +748,7 @@ Ext.Boot = Ext.Boot || (function (emptyFn) {
                     }
                 }
 
-            } else if (request.sequential && (request.loaded < request.urls.length)) {
+            } else if (!_syncMode && request.sequential && (request.loaded < request.urls.length)) {
                 Boot.loadUrl(request.urls[request.loaded], request);
             }
         },
@@ -1027,7 +1027,14 @@ Ext.Boot = Ext.Boot || (function (emptyFn) {
             var urls = request.url,
                 loadOrder = request.loadOrder,
                 loadOrderMap = request.loadOrderMap,
+                expanded;
+
+            if(!request.expanded) {
                 expanded = Boot.expandUrls(urls, loadOrder, loadOrderMap);
+                request.expanded = true;
+            } else {
+                expanded = urls;
+            }
 
             request.url = expanded;
 

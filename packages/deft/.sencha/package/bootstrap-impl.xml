@@ -10,12 +10,14 @@
         <attribute name="classMetadataFile" default="@{file}"/>
         <attribute name="overridesFile" default="@{file}"/>
         <attribute name="includeBoot" default="true"/>
+        <attribute name="includeManifest" default="false"/>
         <attribute name="includeCoreFiles" default="false"/>
         <attribute name="includeMetadata" default="true"/>
         <attribute name="includeOverrides" default="true"/>
         <attribute name="appendCoreFiles" default="true"/>
         <attribute name="appendClassMetadata" default="true"/>
         <attribute name="appendOverrides" default="true"/>
+        <attribute name="manifestTpl" default="var Ext = Ext || '{' '}'; Ext.manifest = {0};"/>
         <attribute name="coreFilesJsonpTpl" default="Ext.Boot.loadSync"/>
         <attribute name="loaderConfigJsonpTpl" default="Ext.Loader.addClassPathMappings"/>
         <attribute name="overrideTpl" default='Ext.Loader.loadScriptsSync'/>
@@ -36,6 +38,7 @@
             <local name="bootstrap.data.content"/>
             <local name="bootstrap.overrides.content"/>
             <local name="bootstrap.launch.content"/>
+            <local name="bootstrap.manifest.content"/>
 
             <local name="boot.file"/>
             <local name="boot.content"/>
@@ -45,6 +48,9 @@
             <local name="core.files.content"/>
             <local name="core.files.call"/>
             <local name="core.relative.file"/>
+            <local name="manifest.file"/>
+            <local name="manifest.content"/>
+            <local name="manifest.content.included"/>
 
             <local name="class.metadata.file"/>
             <local name="class.metadata.content"/>
@@ -124,6 +130,7 @@
 
             <property name="load.script.tpl" value="{0}"/>
             <property name="core.files.file" value="${env.dir}/__core.files"/>
+            <property name="manifest.file" value="${env.dir}/__manifest"/>
             <property name="override.files.file" value="${env.dir}/__override.files"/>
             <property name="class.metadata.file" value="${env.dir}/__class.metadata"/>
 
@@ -151,6 +158,13 @@
                         -set=corefiles
                     and
                     ${ux.include}
+                    metadata
+                        -info=AppManifest
+                        -out=${manifest.file}
+                        -base-path=@{basedir}
+                        -bootRelative=false
+                        -tpl=@{manifestTpl}
+                    and
                     metadata
                         -base-path=@{basedir}
                         +loader-paths
@@ -202,16 +216,23 @@
             <loadfile srcFile="${core.files.file}" property="core.files.content"/>
             <loadfile srcFile="${override.files.file}" property="override.files.content"/>
             <loadfile srcFile="${class.metadata.file}" property="class.metadata.content"/>
+            <loadfile srcFile="${manifest.file}" property="manifest.content"/>
 
             <property name="boot.content" value=""/>
             <property name="core.files.content" value=""/>
             <property name="override.files.content" value=""/>
             <property name="class.metadata.content" value=""/>
-            
+            <property name="manifest.content" value=""/>
+
             <condition property="boot.content.included" value="${boot.content}">
                 <x-is-true value="@{includeBoot}"/>
             </condition>
             <property name="boot.content.included" value=""/>
+
+            <condition property="manifest.content.included" value="${manifest.content}">
+                <x-is-true value="@{includeManifest}"/>
+            </condition>
+            <property name="manifest.content.included" value=""/>
 
             <condition property="core.files.call" value="${core.files.content}">
                 <x-is-true value="@{includeCoreFiles}"/>
@@ -237,6 +258,7 @@
 
             <property name="bootstrap.file.content"><![CDATA[
 ${bootstrap.header}
+${manifest.content.included}
 ${boot.content.included}
 ]]></property>
 
@@ -267,6 +289,7 @@ ${override.files.call}
 
             <!-- clean up temp artifacts -->
             <delete file="${core.files.file}"/>
+            <delete file="${manifest.file}"/>
             <delete file="${override.files.file}"/>
             <delete file="${class.metadata.file}"/>
         </sequential>
