@@ -34,6 +34,7 @@ module.exports = function(config) {
 			'test/js/log/Logger.js',
 			'test/js/ioc/Injector.js',
 			'test/js/mixin/Injectable.js',
+			'test/js/mvc/ViewController.js',
 			'test/lib/promises-aplus-tests-2.0.3/promises-aplus-tests.js',
 			'test/js/promise/Promise.js',
 			'test/js/promise/Chain.js'
