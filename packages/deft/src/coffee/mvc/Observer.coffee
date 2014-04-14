@@ -154,6 +154,9 @@ Ext.define( 'Deft.mvc.Observer',
 		if Deft.isFunction( host[ 'get' + Ext.String.capitalize( target ) ] )
 			result = host[ 'get' + Ext.String.capitalize( target ) ].call( host )
 			return result
+		else if host?[ "_#{target}" ]?
+			result = host[ target ]
+			return result
 		else if host?[ target ]?
 			result = host[ target ]
 			return result
