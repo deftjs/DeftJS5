@@ -257,7 +257,7 @@ describe( 'Deft.mvc.ViewController', ->
 		
 		specify( 'attaches listeners to observed objects in a ViewController with no subclasses', ->
 			eventData = { value1: true, value2: false }
-			
+
 			Ext.define( 'ExampleViewController',
 				extend: 'Deft.mvc.ViewController'
 				
@@ -275,11 +275,11 @@ describe( 'Deft.mvc.ViewController', ->
 			sinon.spy( ExampleViewController.prototype, 'messageHandler' )
 			
 			messageBus = Ext.create( 'Ext.util.Observable' )
-			
+
 			viewController = Ext.create( 'ExampleViewController',
 				messageBus: messageBus
 			)
-			
+
 			expect( hasListener( messageBus, 'message' ) ).to.be.true
 			
 			messageBus.fireEvent( 'message', eventData )

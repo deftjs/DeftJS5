@@ -166,9 +166,10 @@ Ext.define( 'Deft.mvc.ViewController',
 			@companions = Ext.merge( @companions, config.companions )
 			delete config.companions
 
-		@initConfig( config ) # Ensure any config values are set before creating observers.
+		# Core Sencha VC logic, including initConfig() call, happens in superclass constructor, so call it first.
+		@callParent( arguments )
 		@createObservers()
-		return @callParent( arguments )
+		return @
 
 
 	###*

@@ -140,7 +140,7 @@ Ext.define( 'Deft.mvc.Observer',
 		hostTarget = @locateTarget( host, target )
 		return false if not hostTarget?
 
-		if hostTarget.isObservable? or hostTarget.mixins?.observable?
+		if hostTarget.isObservable? or hostTarget.isUtilObservable? or hostTarget.mixinId is "observable" or hostTarget.mixins?.observable?
 			return true
 		else
 			hostTargetClass = Ext.ClassManager.getClass( hostTarget )
