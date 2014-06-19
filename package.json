@@ -12,7 +12,7 @@
     "url": "https://github.com/deftjs/DeftJS5.git"
   },
   "devDependencies": {
-    "karma": "~0.10",
+    "karma": "~0.12.8",
     "coffee-script": "1.6.3",
     "mocha": "~1.17.0",
     "karma-mocha": "~0.1.1",
