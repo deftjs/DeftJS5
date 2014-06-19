@@ -17,6 +17,8 @@
     "mocha": "~1.17.0",
     "karma-mocha": "~0.1.1",
     "karma-coverage": "~0.1.4",
+    "karma-phantomjs-launcher": "~0.1.4",
+    "karma-firefox-launcher": "~0.1.3",
     "karma-safari-launcher": "~0.1.1"
   },
   "scripts": {
