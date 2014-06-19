@@ -27,21 +27,22 @@ Ext.Microloader = Ext.Microloader || (function () {
         Boot = Ext.Boot,
         _listeners = [],
         _loaded = false,
+        _tags = {},
         Microloader = {
 
             /**
              * the global map of tags used
              */
-            platformTags: {},
+            platformTags: _tags,
 
             /**
              * The defult function that detects various platforms and sets tags
              * in the platform map accrodingly.  Examples are iOS, android, tablet, etc.
              * @param tags the set of tags to populate
              */
-            detectPlatformTags: function (tags) {
+            detectPlatformTags: function () {
                 var ua = navigator.userAgent,
-                    isMobile = tags.isMobile = /Mobile(\/|\s)/.test(ua),
+                    isMobile = _tags.isMobile = /Mobile(\/|\s)/.test(ua),
                     isPhone, isDesktop, isTablet, touchSupported, isIE10, isBlackberry,
                     element = document.createElement('div'),
                     uaTagChecks = [
@@ -100,7 +101,7 @@ Ext.Microloader = Ext.Microloader || (function () {
                         (uaTags['Windows Phone']);
 
                 isTablet =
-                    (!tags.isPhone) && (
+                    (!_tags.isPhone) && (
                         uaTags.iPad ||
                             uaTags.Android ||
                             uaTags.Silk ||
@@ -123,7 +124,7 @@ Ext.Microloader = Ext.Microloader || (function () {
                 isIE10 = uaTags['MSIE 10'];
                 isBlackberry = uaTags.Blackberry || uaTags.BB;
 
-                apply(tags, Microloader.loadPlatformsParam(), {
+                apply(_tags, Microloader.loadPlatformsParam(), {
                     phone: isPhone,
                     tablet: isTablet,
                     desktop: isDesktop,
@@ -140,10 +141,8 @@ Ext.Microloader = Ext.Microloader || (function () {
                 });
 
                 if (Ext.beforeLoad) {
-                    tags = Ext.beforeLoad(tags);
+                    Ext.beforeLoad(_tags);
                 }
-
-                return tags;
             },
 
             /**
@@ -192,7 +191,7 @@ Ext.Microloader = Ext.Microloader || (function () {
             },
 
             initPlatformTags: function () {
-                Microloader.platformTags = Microloader.detectPlatformTags(Microloader.platformTags);
+                Microloader.detectPlatformTags();
             },
 
             getPlatformTags: function () {

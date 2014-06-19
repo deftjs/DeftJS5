@@ -123,6 +123,9 @@
                 </else>
             </if>
 
+            <condition property="env.dir" value="${build.temp.dir}">
+                <isset property="build.temp.dir"/>
+            </condition>
             <condition property="env.dir" value="${app.dir}">
                 <isset property="app.dir"/>
             </condition>

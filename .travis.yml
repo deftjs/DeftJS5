@@ -2,7 +2,7 @@ language: node_js
 node_js:
   - 0.8
 env:
-  - DEFT_SENCHA_CMD_VERSION="5.0.0.116"
+  - DEFT_SENCHA_CMD_VERSION="5.0.0.160"
 before_script:
   # Framebuffer for Firefox
   - "export DISPLAY=:99.0"
@@ -10,11 +10,11 @@ before_script:
   # Install JSDuck dependency
   - "gem install jsduck"
   # Download, unzip and symlink Sencha Ext JS dependency
-  - "wget http://cdn.sencha.com/ext/beta/ext-5.0.0.736.zip"
-  - "unzip -q ext-5.0.0.736.zip"
-  - "ln -sv `pwd`/ext-5.0.0.736 $TRAVIS_BUILD_DIR/../ext"
+  - "wget http://cdn.sencha.com/ext/gpl/ext-5.0.0-gpl.zip"
+  - "unzip -q ext-5.0.0-gpl.zip"
+  - "ln -sv `pwd`/ext-5.0.0 $TRAVIS_BUILD_DIR/../ext"
   # Install Sencha Cmd
-  - "wget http://cdn.sencha.com/cmd/beta/$DEFT_SENCHA_CMD_VERSION/SenchaCmd-$DEFT_SENCHA_CMD_VERSION-linux-x64.run.zip"
+  - "wget http://cdn.sencha.com/cmd/$DEFT_SENCHA_CMD_VERSION/SenchaCmd-$DEFT_SENCHA_CMD_VERSION-linux-x64.run.zip"
   - "unzip -q SenchaCmd-$DEFT_SENCHA_CMD_VERSION-linux-x64.run.zip"
   - "chmod +x SenchaCmd-$DEFT_SENCHA_CMD_VERSION-linux-x64.run"
   - "./SenchaCmd-$DEFT_SENCHA_CMD_VERSION-linux-x64.run --mode unattended"

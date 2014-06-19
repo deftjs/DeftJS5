@@ -27,6 +27,7 @@ Ext.Boot = Ext.Boot || (function (emptyFn) {
              */
             disableCaching:
                 (/[?&](?:cache|disableCacheBuster)\b/i.test(location.search) ||
+                    (location.href.substring(0,5) === 'file:') ||
                     /(^|[ ;])ext-cache=1/.test(doc.cookie)) ? false :
                     true,
 
@@ -301,7 +302,7 @@ Ext.Boot = Ext.Boot || (function (emptyFn) {
                 // eval'ed code. Breakpoints work on both Firebug and Chrome's Web
                 // Inspector.
                 if (url) {
-                    content += "\n//@ sourceURL=" + key;
+                    content += "\n//# sourceURL=" + key;
                 }
                 Ext.globalEval(content);
             }

@@ -153,7 +153,6 @@
             <echo>Building example in @{example-dir}</echo>
             <x-sencha-command dir="@{example-dir}" inheritall="false">
                 app
-                each
                 build
             </x-sencha-command>
         </x-process-examples>
