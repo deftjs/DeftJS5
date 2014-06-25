@@ -5,7 +5,7 @@
 
 Essential extensions for large-scale web and mobile application development with [Ext JS 5](http://www.sencha.com/products/extjs/).
 
-Special thanks to Sencha for their support, [Joukou](https://joukou.co/) for sponsoring the Deft JS 5 upgrade, the entire Deft JS team for all your hard work and most of all our awesome community for all your support!
+Special thanks to Sencha for their support, [Joukou](https://joukou.com/) for sponsoring the Deft JS 5 upgrade, the entire Deft JS team for all your hard work and most of all our awesome community for all your support!
 
 # Status of Ext JS 5 Support
 
