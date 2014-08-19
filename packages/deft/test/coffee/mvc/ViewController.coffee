@@ -838,7 +838,7 @@ describe( 'Deft.mvc.ViewController', ->
 		return
 	)
 
-	describe( 'Creation of companion view controllers using the \'companions\' property', ->
+	describe( 'Handles anticipated uses of mixins in view controllers', ->
 
 		delete ExampleComponent
 		delete ExampleView
@@ -891,47 +891,65 @@ describe( 'Deft.mvc.ViewController', ->
 			return
 		)
 
-		specify( 'creates and destroys companion view controllers and performs injections using ViewController class\'s Injectable mixin.', ->
+		specify( 'creates and destroys mixed in classes for view controllers and performs injections using ViewController class\'s Injectable mixin.', ->
 
 			injectStub = sinon.stub( Deft.Injector, 'inject' )
 
-			Ext.define( 'ExampleViewController',
-				extend: 'Deft.mvc.ViewController'
-				inject: [ 'identifier' ]
-
-				companions:
-					associatedController1: "AssociatedViewController1"
-
-				constructor: ->
-					#expect( injectStub ).to.be.calledWith( @inject, @, arguments, false )
-					#expect( @inject ).to.be.eql(
-					#	identifier: 'identifier'
-					#)
-					return @callParent( arguments )
-			)
-
-			Ext.define( 'AssociatedViewController1',
-				extend: 'Deft.mvc.ViewController'
+			Ext.define( 'ViewControllerMixin',
+				extend: 'Ext.Mixin'
+				mixins: [ 'Deft.mixin.Injectable', 'Deft.mixin.Observer' ]
 				inject: [ 'identifier2' ]
 
-				companions:
-					associatedController2: "AssociatedViewController2"
+				#companions:
+				#	associatedController2: "AssociatedViewController2"
 
 				constructor: ->
 					#expect( injectStub ).to.be.calledWith( @inject, @, arguments, false )
 					#expect( @inject ).to.be.eql(
 					#	identifier2: 'identifier2'
 					#)
+					temp = @inject
+					debugger
 					return @callParent( arguments )
+
+				destroy: ->
+					Ext.log( "mixin destroy" )
+					@callParent( arguments )
+					@removeObservers()
+					return true
 			)
+
+			Ext.define( 'ExampleViewController',
+				extend: 'Deft.mvc.ViewController'
+				mixins: [ 'ViewControllerMixin' ]
+				inject: [ 'identifier' ]
+
+
+				constructor: ->
+					#expect( injectStub ).to.be.calledWith( @inject, @, arguments, false )
+					#expect( @inject ).to.be.eql(
+					#	identifier: 'identifier'
+					#)
+					temp = @inject
+					debugger
+
+					return @callParent( arguments )
+
+				destroy: ->
+					Ext.log( "ExampleViewController destroy" )
+					@callParent( arguments )
+					return true
+			)
+
+
 
 			Ext.define( 'AssociatedViewController2',
 				extend: 'Deft.mvc.ViewController'
 
 			)
 
-			sinon.spy( AssociatedViewController1.prototype, 'destroy' )
-			sinon.spy( AssociatedViewController2.prototype, 'destroy' )
+			#sinon.spy( ViewControllerMixin.prototype, 'destroy' )
+			#sinon.spy( ExampleViewController.prototype, 'destroy' )
 
 			view = Ext.create( 'ExampleView' )
 
@@ -941,70 +959,23 @@ describe( 'Deft.mvc.ViewController', ->
 			viewController = Ext.create( 'ExampleViewController' )
 			viewController.setView( view )
 
-			associatedController1 = viewController.getCompanion( "associatedController1" )
-			associatedController2 = associatedController1.getCompanion( "associatedController2" )
-
 			expect( viewController.getView() ).to.equal( view )
-			expect( associatedController1.getView() ).to.equal( view )
-			expect( associatedController2.getView() ).to.equal( view )
+			#expect( associatedController1.getView() ).to.equal( view )
+			#expect( associatedController2.getView() ).to.equal( view )
 
 			viewController.destroy()
-			expect( associatedController1.destroy ).to.be.calledOnce.and.calledOn( associatedController1 )
-			expect( associatedController2.destroy ).to.be.calledOnce.and.calledOn( associatedController2 )
+			#expect( associatedController1.destroy ).to.be.calledOnce.and.calledOn( associatedController1 )
+			#expect( associatedController2.destroy ).to.be.calledOnce.and.calledOn( associatedController2 )
 
 			injectStub.restore()
 
 			delete ExampleViewController
-			delete AssociatedViewController1
-			delete AssociatedViewController2
-
-			return
-		)
-
-		specify( 'throws an error when a circular dependency exists in a view controller\'s companions', ->
-
-			Ext.define( 'ExampleViewController',
-				extend: 'Deft.mvc.ViewController'
-				companions:
-					associatedController1: "AssociatedViewController1"
-			)
-
-			Ext.define( 'AssociatedViewController1',
-				extend: 'Deft.mvc.ViewController'
-				companions:
-					associatedController2: "AssociatedViewController2"
-			)
-
-			Ext.define( 'AssociatedViewController2',
-				extend: 'Deft.mvc.ViewController'
-				companions:
-					associatedController3: "AssociatedViewController3"
-			)
-
-			Ext.define( 'AssociatedViewController3',
-				extend: 'Deft.mvc.ViewController'
-				companions:
-					recursiveController: "AssociatedViewController1"
-			)
-
-			view = Ext.create( 'ExampleView' )
-
-			try
-				viewController = Ext.create( 'ExampleViewController' )
-				viewController.setView( view )
-			catch error
-				expect( error.message.lastIndexOf( "circular dependency exists in its companions" ) ).to.be.greaterThan( -1 )
-
-
-			delete ExampleViewController
-			delete AssociatedViewController1
-			delete AssociatedViewController2
-			delete AssociatedViewController3
+			delete ViewControllerMixin
 
 			return
 		)
 	)
-	
+
 	describe( 'Destruction and clean-up', ->
 
 		before( ->
@@ -1040,35 +1011,33 @@ describe( 'Deft.mvc.ViewController', ->
 		after( ->
 			delete ExampleComponent
 			delete ExampleView
-
 			return
 		)
 
 		beforeEach( ->
 			Ext.DomHelper.append( Ext.getBody(), '<div id="componentTestArea" style="visibility: hidden"></div>' )
-			
 			return
 		)
 		
 		afterEach( ->
 			Ext.removeNode( Ext.get( 'componentTestArea' ).dom )
-
 			return
 		)
 		
 		specify( 'calls destroy() when the associated view is destroyed', ->
-			Ext.log( "!!! starting test" )
-
 			Ext.define( 'ExampleViewController',
 				extend: 'Deft.mvc.ViewController'
+
+				destroy: ->
+					return true
 			)
-			
+
 			view = Ext.create( 'ExampleView' )
 			viewController = Ext.create( 'ExampleViewController' )
 			viewController.setView( view )
-			
+
 			sinon.spy( viewController, 'destroy' )
-			
+
 			isViewDestroyed = false
 			view.on( 'destroy', -> isViewDestroyed = true )
 			view.destroy()

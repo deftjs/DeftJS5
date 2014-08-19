@@ -261,7 +261,6 @@ Ext.define( 'Deft.mvc.ViewController',
 	* Destroy the ViewController
 	###
 	destroy: ->
-		Ext.log( "destroy" )
 		@callParent( arguments )
 		@removeObservers()
 		@destroyCompanions()
@@ -308,7 +307,6 @@ Ext.define( 'Deft.mvc.ViewController',
 
 			if( Ext.getVersion( 'extjs' )? )
 				# Ext JS
-				Ext.log( "adding beforedestroy" )
 				@getView().on( 'beforedestroy', @onViewBeforeDestroy, @ )
 
 			else
