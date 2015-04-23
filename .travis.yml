@@ -2,7 +2,7 @@ language: node_js
 node_js:
   - 0.10.30
 env:
-  - DEFT_SENCHA_EXT_VERSION="5.0.1" DEFT_SENCHA_CMD_VERSION="5.0.1.231" 
+  - DEFT_SENCHA_EXT_VERSION="5.0.1" DEFT_SENCHA_CMD_VERSION="5.1.0.26" 
 before_script:
   # Framebuffer for Firefox
   - "export DISPLAY=:99.0"
