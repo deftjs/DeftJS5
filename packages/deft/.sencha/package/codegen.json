@@ -30,88 +30,88 @@
       "source": "testing.properties.merge",
       "version": "e65f969c42eb4f355c850fc58fea852582f20db8",
       "parameters": {
-        "extRelPath": "../../../ext-5.0.0",
+        "extRelPath": "../../../ext",
         "pkgName": "deft",
         "pkgType": "code",
         "senchadir": ".sencha",
-        "touchRelPath": "../../../sencha-touch-2.2.1"
+        "touchRelPath": "../../../touch"
       }
     },
     ".sencha/package/build.properties": {
       "source": "build.properties.merge",
       "version": "8b81315dbe73ce9c08478f4c1d2df84f456efcf5",
       "parameters": {
-        "extRelPath": "../../../ext-5.0.0",
+        "extRelPath": "../../../ext",
         "pkgName": "deft",
         "pkgType": "code",
         "senchadir": ".sencha",
-        "touchRelPath": "../../../sencha-touch-2.2.1"
+        "touchRelPath": "../../../touch"
       }
     },
     "package.json": {
       "source": "package.json.tpl.merge",
       "version": "9c7e7135be031f8d06045d338200cbf4a4222f88",
       "parameters": {
-        "extRelPath": "../../../ext-5.0.0",
+        "extRelPath": "../../../ext",
         "pkgName": "deft",
         "pkgType": "code",
         "senchadir": ".sencha",
-        "touchRelPath": "../../../sencha-touch-2.2.1"
+        "touchRelPath": "../../../touch"
       }
     },
     "sass/etc/all.scss": {
       "source": "all.scss.merge",
       "version": "da39a3ee5e6b4b0d3255bfef95601890afd80709",
       "parameters": {
-        "extRelPath": "../../../ext-5.0.0",
+        "extRelPath": "../../../ext",
         "pkgName": "deft",
         "pkgType": "code",
         "senchadir": ".sencha",
-        "touchRelPath": "../../../sencha-touch-2.2.1"
+        "touchRelPath": "../../../touch"
       }
     },
     "sass/example/custom.js": {
       "source": "custom.js.merge",
       "version": "199e99bbd15c3c0415569425cb21e77c95e9042a",
       "parameters": {
-        "extRelPath": "../../../ext-5.0.0",
+        "extRelPath": "../../../ext",
         "pkgName": "deft",
         "pkgType": "code",
         "senchadir": ".sencha",
-        "touchRelPath": "../../../sencha-touch-2.2.1"
+        "touchRelPath": "../../../touch"
       }
     },
     "sass/example/theme.html": {
       "source": "theme.html.tpl.merge",
       "version": "32f685a8af28baafcc7999862d0bd1f25df0e48b",
       "parameters": {
-        "extRelPath": "../../../ext-5.0.0",
+        "extRelPath": "../../../ext",
         "pkgName": "deft",
         "pkgType": "code",
         "senchadir": ".sencha",
-        "touchRelPath": "../../../sencha-touch-2.2.1"
+        "touchRelPath": "../../../touch"
       }
     },
     "sass/config.rb": {
       "source": "config.rb.tpl.merge",
       "version": "33f446bd02c3fd24eb27891582eff6a2e789796b",
       "parameters": {
-        "extRelPath": "../../../ext-5.0.0",
+        "extRelPath": "../../../ext",
         "pkgName": "deft",
         "pkgType": "code",
         "senchadir": ".sencha",
-        "touchRelPath": "../../../sencha-touch-2.2.1"
+        "touchRelPath": "../../../touch"
       }
     },
     ".sencha/package/sencha.cfg": {
       "source": "sencha.cfg.tpl.merge",
       "version": "6d1982cce48163a98dc46012d1d0cdfa209fbda6",
       "parameters": {
-        "extRelPath": "../../../ext-5.0.0",
+        "extRelPath": "../../../ext",
         "pkgName": "deft",
         "pkgType": "code",
         "senchadir": ".sencha",
-        "touchRelPath": "../../../sencha-touch-2.2.1"
+        "touchRelPath": "../../../touch"
       }
     }
   }
