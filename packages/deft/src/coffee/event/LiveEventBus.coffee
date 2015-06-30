@@ -90,7 +90,7 @@ Ext.define( 'Deft.event.LiveEventBus',
 			Ext.ComponentManager,
 			'register',
 			( component ) ->
-				Deft.event.LiveEventBus.register( component )
+				Deft.event.LiveEventBus.register( component ) if component.isObservable && component.on && component.un
 				return
 		)
 
@@ -98,7 +98,7 @@ Ext.define( 'Deft.event.LiveEventBus',
 			Ext.ComponentManager,
 			'unregister',
 			( component ) ->
-				Deft.event.LiveEventBus.unregister( component )
+				Deft.event.LiveEventBus.unregister( component ) if component.isObservable && component.on && component.un
 				return
 		)
 
