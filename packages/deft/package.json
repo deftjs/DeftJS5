@@ -1,12 +1,22 @@
 {
+    /**
+     * The namespace of this package.
+     *
+     * As a general rule, all classes that belong to this package should be under this namespace
+     * if multiple namespaces are part of this package, set this to "".
+     */
+    "namespace": "deft",
+
+
     "name": "deft",
     "type": "code",
     "creator": "Deft JS",
-    "summary": "Extensions for Large-Scale Sencha Touch and Ext JS 5 Applications",
+    "summary": "Extensions for Large-Scale Sencha Touch and Ext JS 6 Applications",
     "detailedDescription": "Deft JS extends Sencha Touch and Ext JS to add an Inversion of Control (IoC) container, for dependency injection and dynamic application assembly; and a Promises/A+ compliant implementation of Promises and Deferreds, for simplified coordination, aggregation and transformation of asynchronous operations and their resulting values.",
-    "version": "5.0.0",
-    "compatVersion": "5.0.0",
+    "version": "6.0.0",
+    "compatVersion": "6.0.0",
     "format": "1",
+    "toolkit": "classic",
     "slicer": {
         "js": [
             {

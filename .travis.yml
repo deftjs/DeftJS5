@@ -2,7 +2,7 @@ language: node_js
 node_js:
   - 0.10.30
 env:
-  - DEFT_SENCHA_EXT_VERSION="5.1.0" DEFT_SENCHA_CMD_VERSION="5.1.0.26" 
+  - DEFT_SENCHA_EXT_VERSION="6.0.0" DEFT_SENCHA_CMD_VERSION="6.0.1.76" 
 before_script:
   # Framebuffer for Firefox
   - "export DISPLAY=:99.0"
@@ -14,10 +14,10 @@ before_script:
   - "unzip -q ext-$DEFT_SENCHA_EXT_VERSION-gpl.zip"
   - "ln -sv `pwd`/ext-$DEFT_SENCHA_EXT_VERSION $TRAVIS_BUILD_DIR/../ext"
   # Install Sencha Cmd
-  - "wget http://cdn.sencha.com/cmd/$DEFT_SENCHA_CMD_VERSION/SenchaCmd-$DEFT_SENCHA_CMD_VERSION-linux-x64.run.zip"
-  - "unzip -q SenchaCmd-$DEFT_SENCHA_CMD_VERSION-linux-x64.run.zip"
-  - "chmod +x SenchaCmd-$DEFT_SENCHA_CMD_VERSION-linux-x64.run"
-  - "./SenchaCmd-$DEFT_SENCHA_CMD_VERSION-linux-x64.run --mode unattended"
+  - "wget http://cdn.sencha.com/cmd/$DEFT_SENCHA_CMD_VERSION/no-jre/SenchaCmd-$DEFT_SENCHA_CMD_VERSION-linux-amd64.sh.zip"
+  - "unzip -q SenchaCmd-$DEFT_SENCHA_CMD_VERSION-linux-amd64.sh.zip"
+  - "chmod +x SenchaCmd-$DEFT_SENCHA_CMD_VERSION-linux-amd64.sh"
+  - "./SenchaCmd-$DEFT_SENCHA_CMD_VERSION-linux-amd64.sh -q"
   # Make Sencha Cmd and CoffeeScript available in the PATH
   - "export PATH=~/bin/Sencha/Cmd/$DEFT_SENCHA_CMD_VERSION/:$TRAVIS_BUILD_DIR/node_modules/karma/bin:$TRAVIS_BUILD_DIR/node_modules/coffee-script/bin:$PATH"
   # Change directory to the package and build the package
