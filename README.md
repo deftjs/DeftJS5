@@ -1,13 +1,17 @@
-# Deft JS 5
+# Deft JS 6
 
 [![Build Status](https://travis-ci.org/deftjs/DeftJS5.svg?branch=develop)](https://travis-ci.org/deftjs/DeftJS5)
 [![Stories in Ready](https://badge.waffle.io/deftjs/DeftJS5.png?label=Ready)](http://waffle.io/deftjs/DeftJS5)
 
-Essential extensions for large-scale web and mobile application development with [Ext JS 5](http://www.sencha.com/products/extjs/).
+Essential extensions for large-scale web and mobile application development with [Ext JS 6](http://www.sencha.com/products/extjs/).
 
 # About
 
-Deft JS 5 enhances Ext JS 5 with additional building blocks that enable large development teams to rapidly build enterprise scale applications, leveraging best practices and proven patterns discovered by top RIA developers at some of the best consulting firms in the industry.
+Deft JS 6 enhances Ext JS 6 with additional building blocks that enable large development teams to rapidly build enterprise scale applications, leveraging best practices and proven patterns discovered by top RIA developers at some of the best consulting firms in the industry.
+
+# TODO (Ext JS 6)
+
+* Alias `Deft.promise.*` -> `Ext.promise.*`. At the moment we are still redeploying the DeftJS code which is redundant.
 
 # Goals
 
